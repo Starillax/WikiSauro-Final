@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>Pokémon Details</title>
+    <style>
+        .poke-card {
+            position: relative;
+            height: fit-content;
+            font-family: 'Roboto Mono', monospace;
+            max-width: 300px;
+            border-radius: 4px;
+            color: #000;
+            text-align: center;
+            padding: 10px;
+            margin: 0 auto;
+            background-color: #FFF;
+            border: 1px solid black;
+        }
+
+        .poke-card::before {
+            content: '';
+            background: radial-gradient(black 33%, transparent 33%);
+            background-size: 3px 3px;
+            border-radius: 4px;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            z-index: -1;
+        }
+
+        .img-container {
+            position: relative;
+            width: 180px;
+            margin: 10px auto;
+        }
+
+        .poke-stats div {
+            display: flex;
+            justify-content: space-between;
+            align-content: space-between;
+            padding: 5px;
+            font-size: 18px;
+        }
+
+        .poke-types div {
+            padding: 5px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px dashed black;
+        }
+
+        .poke-img {
+            width: 180px;
+            border-radius: 50%;
+        }
+
+        .poke-entry {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 4px;
+        }
+
+        .poke-abilities {
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px dotted black;
+            background: rgba(169, 169, 169, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div data-poke-card class="poke-card">
+        <div data-poke-name><%= name %></div>
+        <div data-poke-img-container class="img-container">
+            <img data-poke-img class="poke-img" src="<%= sprite %>">
+        </div>
+        <div data-poke-id>Nº <%= number %></div>
+        <div data-poke-types class="poke-types"></div>
+        <div class="poke-abilities">
+            <h2>Abilities:</h2>
+            <% abilities.forEach(ability => { %>
+                <p><%= ability.ability.name %></p>
+            <% }) %>
+        </div>
+        <div data-poke-stats class="poke-stats"></div>
+        <div class="poke-entry"><%= entry %></div>
+
+    </div>
+    <script type="text/javascript">
+        const pokeCard = document.querySelector('[data-poke-card]');
+        const pokeName = document.querySelector('[data-poke-name]');
+        const pokeImg = document.querySelector('[data-poke-img]');
+        const pokeImgContainer = document.querySelector('[data-poke-img-container]');
+        const pokeId = document.querySelector('[data-poke-id]');
+        const pokeTypes = document.querySelector('[data-poke-types]');
+        const pokeStats = document.querySelector('[data-poke-stats]');
+
+        const typeColors = {
+            electric: '#f4d23b',
+            normal: '#9098a2',
+            fire: '#fe9c53',
+            water: '#4d90d5',
+            ice: '#74cdbf',
+            rock: '#c8b78b',
+            flying: '#93aade',
+            grass: '#63bb5c',
+            psychic: '#f97077',
+            ghost: '#5269ab',
+            bug: '#90c02c',
+            poison: '#ab6ac8',
+            ground: '#d97746',
+            dragon: '#046ec9',
+            steel: '#5269ab',
+            fighting: '#ce3f6a',
+            dark: '#5a5365',
+            fairy: '#ed8fe6',
+            default: '#2A1A1F',
+        };
+
+        const renderPokemonData = data => {
+            const types = [];
+            const stats = [];
+            "<% types.forEach(type => { %>";
+                types.push("<%= type.type.name %>");
+            "<% }) %>";
+            "<% stats.forEach(function (stat, index) { %>";
+                stats[parseInt("<%= index %>")] = ["<%= stat.stat.name %>", "<%= stat.base_stat %>"];
+            "<% }) %>";
+
+            console.log(types);
+            console.log(stats);
+
+            setCardColor(types);
+            renderPokemonTypes(types);
+            renderPokemonStats(stats);
+        }
+
+
+        const setCardColor = types => {
+            const colorOne = typeColors[types[0]];
+            const colorTwo = types[1] ? typeColors[types[1]] : typeColors.default;
+            pokeImg.style.background =  `radial-gradient(${colorTwo} 33%, ${colorOne} 33%)`;
+            pokeImg.style.backgroundSize = ' 5px 5px';
+        }
+
+        const renderPokemonTypes = types => {
+            pokeTypes.innerHTML = '';
+            types.forEach(type => {
+                const typeTextElement = document.createElement("div");
+                typeTextElement.style.color = typeColors[type];
+                typeTextElement.textContent = type;
+                pokeTypes.appendChild(typeTextElement);
+            });
+        }
+
+        const renderPokemonStats = stats => {
+            pokeStats.innerHTML = '';
+            stats.forEach(stat => {
+                const statElement = document.createElement("div");
+                const statElementName = document.createElement("div");
+                const statElementAmount = document.createElement("div");
+                statElementName.textContent = stat[0];
+                statElementAmount.textContent = stat[1];
+                statElement.appendChild(statElementName);
+                statElement.appendChild(statElementAmount);
+                pokeStats.appendChild(statElement);
+            });
+        }
+
+        window.onload = renderPokemonData();
+    </script>
+</body>
+</html>
+
+<!-- <img src="<%= sprite %>">
+<h5>Name:</h5>
+<p><%= name %></p>
+<br>
+<h5>Number:</h5>
+<p><%= number %></p>
+<br>
+<h5>Type(s):</h5>
+<% types.forEach(type => { %>
+    <p><%= type.type.name %></p>
+<% }) %>
+<br>
+<h5>Abilities:</h5>
+<% abilities.forEach(ability => { %>
+    <p><%= ability.ability.name %></p>
+<% }) %>
+<br>
+<h5>Base Stats:</h5>
+<% stats.forEach(stat => { %>
+    <p><%= stat.stat.name %></p>
+    <p><%= stat.base_stat %></p>
+<% }) %>
+<br>
+<p><%= entry %></p> -->

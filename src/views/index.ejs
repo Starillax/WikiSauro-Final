@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiSauro</title>
+    <link href="http://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
+    <style>
+        body{
+            background-image: url('https://i.imgur.com/O7ZWigt.png');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .title {
+            margin: -75px 15px 0;
+            font-family: 'Pokemon Solid', sans-serif;
+        }
+  
+        .title span {
+            font-size: 80px;
+            font-weight: 700;
+            color: rgb(60,98,183);
+            position: relative;
+            text-shadow: -1px 0 0 rgb(50,70,134);
+        }
+  
+        .title span::before {
+            content: attr(data-title);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: center;
+            color: rgba(249,199,4);
+            transform: rotateY(35deg);
+        }
+
+        .form {
+            background-color: rgba(17, 0, 255, 0.1);
+            width: 25%;
+            border-radius: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button{
+            margin-bottom: 15%;
+            margin-top: 15%;
+            margin-left:10%;
+            margin-right: 10%;
+            background-color: rgba(255, 252, 60, 0.8);
+            color: rgb(0, 26, 255);
+            width: 100%;
+            height: 60px;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+
+        .form h2 {
+            color: rgb(255, 251, 0);
+            font-size: 35px;
+        }
+
+        #gen {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url(http://www.webcis.com.br/images/imagens-noticias/select/ico-seta-appearance.gif) no-repeat #eeeeee;
+            background-position: 218px center;
+            width: 250px;
+            height: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="title">
+        <span data-title="W">W</span>
+        <span data-title="i">i</span>
+        <span data-title="k">k</span>
+        <span data-title="i">i</span>
+        <span data-title="S">S</span>
+        <span data-title="a">a</span>
+        <span data-title="u">u</span>
+        <span data-title="r">r</span>
+        <span data-title="o">o</span>
+    </div>
+
+    <div class="form">
+
+        <h2>Choose a Pokédex</h2>
+
+        <form action="/search" method="POST">
+
+            <select name="gen" id="gen">
+                <option value="1">National Dex</option>
+                <option value="2">Gen 1 Dex</option>
+                <option value="3">Gen 2 Dex</option>
+                <option value="4">Gen 3 Dex</option>
+                <option value="6">Gen 4 Dex</option>
+                <option value="8">Gen 5 Dex</option>
+                <option value="12">Gen 6 Dex</option>
+                <option value="16">Gen 7 Dex</option>
+                <option value="27">Gen 8 Dex</option>
+            </select>
+
+            <button type="submit">Run search!</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

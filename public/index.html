@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WikiSauro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <h1>Search for Pokémon!</h1>
+
+    <form action="/results" method="POST">
+
+        <select name="search" id="search">
+            <option value="gen">Search by gen</option>
+            <option value="rarity">Search for mythical and legendary pokémon</option>
+            <option value="type">Search by type</option>
+        </select>
+
+        <input type="text"></input>
+
+        <button type="submit">Run search!</button>
+
+    </form>
+
+</body>
+</html>
